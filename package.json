@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "tailwindcss": "^4.1.8"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.8"
+  },
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./styles.css -o ./output.css --minify"
+  }
+}

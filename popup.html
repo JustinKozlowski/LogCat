@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>KD Logs Message Parser</title>
+    <!-- <link href="styles.css" rel="stylesheet"> -->
+    <link href="output.css" rel="stylesheet">
+    <style>
+      body {
+        transition: min-width 0.2s;
+      }
+      body.narrow {
+        min-width: 160px !important;
+      }
+      body.wide {
+        min-width: 320px !important;
+      }
+    </style>
+  </head>
+  <body class="font-sans m-2 bg-gray-900 text-gray-100 min-w-[160px] narrow">
+    <div class="flex flex-col">
+      <button id="parseBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white w-full">Parse Messages</button>
+      <div id="output" class="text-sm min-h-0 break-words flex items-center justify-center text-gray-400 pt-[2px]" style="display:none;">
+        <span id="outputMessage" class="block w-full text-center"></span>
+      </div>
+      <span id="advancedBtn" class="text-xs text-blue-400 hover:underline cursor-pointer w-full text-center mt-1">Advanced</span>
+      <div id="advancedSection" style="display:none;" class="mt-2">
+        <label for="filterMessage" class="block mb-1 text-xs text-gray-400">Message Contains:</label>
+        <input id="filterMessage" type="text" class="w-full mb-2 px-2 py-1 rounded bg-gray-800 text-gray-100 border border-gray-700 text-xs" placeholder="Search message...">
+        <div class="flex gap-2 mb-2">
+          <div class="flex-1">
+            <label for="filterTimestampFrom" class="block mb-1 text-xs text-gray-400">Timestamp From:</label>
+            <input id="filterTimestampFrom" type="time" class="w-full px-2 py-1 rounded bg-gray-800 text-gray-100 border border-gray-700 text-xs">
+          </div>
+          <div class="flex-1">
+            <label for="filterTimestampTo" class="block mb-1 text-xs text-gray-400">To:</label>
+            <input id="filterTimestampTo" type="time" class="w-full px-2 py-1 rounded bg-gray-800 text-gray-100 border border-gray-700 text-xs">
+          </div>
+        </div>
+        <label for="filterLevel" class="block mb-1 text-xs text-gray-400">Log Level:</label>
+        <select id="filterLevel" class="w-full mb-2 px-2 py-1 rounded bg-gray-800 text-gray-100 border border-gray-700 text-xs">
+          <option value="">Any</option>
+          <option value="INFO">INFO</option>
+          <option value="WARN">WARN</option>
+          <option value="ERROR">ERROR</option>
+          <option value="DEBUG">DEBUG</option>
+          <option value="TRACE">TRACE</option>
+        </select>
+        <label for="formatInput" class="block mb-1 text-xs text-gray-400">Format:</label>
+        <textarea id="formatInput" class="w-full min-w-[200px] max-w-full min-h-[48px] font-mono text-xs p-2 rounded bg-gray-800 text-gray-100 border border-gray-700 resize-y">[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}</textarea>
+        <span id="resetFiltersBtn" class="block mt-2 text-xs text-red-400 hover:underline cursor-pointer w-full text-center">Reset Filters</span>
+      </div>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>
