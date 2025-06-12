@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "V2 KD Logs Message Parser",
+  "name": "CatLog",
   "version": "1.0",
-  "description": "Parses the 'message' field from JSON in kd-logs-element divs.",
+  "description": "A Chrome extension to parse Logs in K8s dashboard. It can be useful if DataDog is down/not helpful",
   "permissions": ["scripting", "activeTab"],
   "action": {
     "default_popup": "popup.html"

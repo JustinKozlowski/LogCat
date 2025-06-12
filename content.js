@@ -1,3 +1,14 @@
+const KD_LOG_FORMAT = '[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}';
+const LOG_LEVELS = [
+  'ALL',
+  'TRACE',
+  'DEBUG',
+  'INFO',
+  'WARNING',
+  'ERROR',
+]
+
+
 function injectKDLogStyles() {
   if (document.getElementById('kd-log-style')) return;
   const style = document.createElement('style');
@@ -23,7 +34,6 @@ function getLevelClass(level) {
   return 'kd-log-level-def';
 }
 
-const KD_LOG_FORMAT = '[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}';
 
 function formatWithTemplate(json, template) {
   function formatTimestamp(ts, fmt) {
@@ -85,7 +95,6 @@ function parseKDLogsMessages(formatString) {
   kdParsedLogs = [];
   elements.forEach(span => {
     try {
-      // Store the original JSON string in a data attribute if not already present
       if (!span.dataset.json) {
         span.dataset.json = span.textContent;
       }
@@ -114,7 +123,7 @@ function applyKDLogFilters(filter, formatString) {
       // Filter lower levels out
       const logLevel = (json.Level || '').toString().toUpperCase();
       const filterLevel = filter.level.toString().toUpperCase();
-      if (!logLevel.includes(filterLevel) && !filterLevel.includes(logLevel)) {
+      if (!inLogLevel(filterLevel, logLevel)) {
         visible = false;
       }
     }
@@ -142,6 +151,15 @@ function applyKDLogFilters(filter, formatString) {
       span.parentElement.style.display = 'none';
     }
   });
+}
+
+function inLogLevel(filterLevel, logLevel) {
+  const filterIndex = LOG_LEVELS.indexOf(filterLevel);
+  const logIndex = LOG_LEVELS.map(
+    level => logLevel.includes(level) || level.includes(logLevel)
+  ).indexOf(true);
+  if (filterIndex === -1 || logIndex === -1) return false; // Invalid levels
+  return logIndex >= filterIndex;
 }
 
 
