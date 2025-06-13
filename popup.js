@@ -9,6 +9,7 @@ document.getElementById('parseBtn').addEventListener('click', async () => {
   const filterLevel = document.getElementById('filterLevel').value;
 
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  
   chrome.tabs.sendMessage(tab.id, {
     action: 'parseKDLogsMessages',
     format,
@@ -20,6 +21,7 @@ document.getElementById('parseBtn').addEventListener('click', async () => {
     }
   }, (response) => {
     const output = document.getElementById('output');
+      
     if (chrome.runtime.lastError) {
       showOutputMessage('Error: ' + chrome.runtime.lastError.message);
       return;

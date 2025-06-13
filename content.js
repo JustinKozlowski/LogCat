@@ -4,7 +4,7 @@ const LOG_LEVELS = [
   'TRACE',
   'DEBUG',
   'INFO',
-  'WARNING',
+  'WARN',
   'ERROR',
 ]
 
@@ -161,7 +161,6 @@ function inLogLevel(filterLevel, logLevel) {
   if (filterIndex === -1 || logIndex === -1) return false; // Invalid levels
   return logIndex >= filterIndex;
 }
-
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'parseKDLogsMessages') {
